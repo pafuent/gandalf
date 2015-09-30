@@ -1,0 +1,7 @@
+El Emi Molina se puso a tunear un poco mas redsocks y me mando el resultado, muy bueno por cierto que aquí comparto.
+La magia de estos scripts es que no se requiere setear proxy http. Es transparente posta para todo. Parece como si no estuviéramos atrás de un proxy.
+Los pasos básicos a seguir son:
+- Instalar redosocks o asegurarse tener la versión > 0.4
+- Deshabilitar el servicio redsocks para que no levante en cada boot y pararlo.
+- Remover los ‘\r’ de los archivos porque quedaron.
+- Ejecutar docker_enablesocks.sh con sudo con el conf en el mismo dir
