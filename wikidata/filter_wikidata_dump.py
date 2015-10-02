@@ -65,7 +65,7 @@ if __name__ == "__main__":
                         if args.show_only_labels:
                             show_label(record, args.show_only_labels)
                         else:
-                            process_record(record, filter_regex)
+                            process_record(record)
             else:
                 for i in range(0, args.number_of_records):
                     record = next(dump_fd)
@@ -73,7 +73,7 @@ if __name__ == "__main__":
                         if args.show_only_labels:
                             show_label(record, args.show_only_labels)
                         else:
-                            process_record(record, filter_regex)
+                            process_record(record)
         except StopIteration:
             pass
 
