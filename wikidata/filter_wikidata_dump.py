@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-import gzip
 import json
 import re
+import subprocess
 import sys
 
 
@@ -50,30 +50,34 @@ if __name__ == "__main__":
              ' in the language of its value')
     args = parser.parse_args()
 
-    with gzip.open(args.dump, 'r') as dump_fd:
-        # ignore the first two lines
-        next(dump_fd) # [
-        next(dump_fd) # new line
+    p = subprocess.Popen(["zcat", args.dump], stdout=subprocess.PIPE)
+    dump_fd = p.stdout
 
-        filter_regex = (
-            re.compile(args.filter_regex) if args.filter_regex else None)
+    # ignore the first two lines
+    next(dump_fd) # [
+    next(dump_fd) # new line
 
-        try:
-            if args.number_of_records == -1:
-                for record in dump_fd:
-                    if filter_regex is None or filter_regex.search(record):
-                        if args.show_only_labels:
-                            show_label(record, args.show_only_labels)
-                        else:
-                            process_record(record)
-            else:
-                for i in range(0, args.number_of_records):
-                    record = next(dump_fd)
-                    if filter_regex is None or filter_regex.search(record):
-                        if args.show_only_labels:
-                            show_label(record, args.show_only_labels)
-                        else:
-                            process_record(record)
-        except StopIteration:
-            pass
+    filter_regex = (
+        re.compile(args.filter_regex) if args.filter_regex else None)
+
+    try:
+        if args.number_of_records == -1:
+            for record in dump_fd:
+                if filter_regex is None or filter_regex.search(record):
+                    if args.show_only_labels:
+                        show_label(record, args.show_only_labels)
+                    else:
+                        process_record(record)
+        else:
+            for i in range(0, args.number_of_records):
+                record = next(dump_fd)
+                if filter_regex is None or filter_regex.search(record):
+                    if args.show_only_labels:
+                        show_label(record, args.show_only_labels)
+                    else:
+                        process_record(record)
+    except StopIteration:
+        pass
+
+    p.kill()
 

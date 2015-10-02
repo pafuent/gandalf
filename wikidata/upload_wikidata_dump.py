@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-import gzip
 import json
 import re
+import subprocess
 import sys
 
 import requests
@@ -39,26 +39,29 @@ if __name__ == "__main__":
         help='the elastic index to populate with the JSON dump')
     args = parser.parse_args()
 
-    with gzip.open(args.dump, 'r') as dump_fd:
-        # ignore the first two lines
-        next(dump_fd) # [
-        next(dump_fd) # new line
+    p = subprocess.Popen(["zcat", args.dump], stdout=subprocess.PIPE)
+    dump_fd = p.stdout
 
-        filter_regex = (
-            re.compile(args.filter_regex) if args.filter_regex else None)
+    # ignore the first two lines
+    next(dump_fd) # [
+    next(dump_fd) # new line
 
-        try:
-            endpoint = "{0}/{1}".format(args.elastic_endpoint,
-                                        args.elastic_index)
-            if args.number_of_records == -1:
-                for record in dump_fd:
-                    if filter_regex is None or filter_regex.search(record):
-                        process_record(record, endpoint)
-            else:
-                for i in range(0, args.number_of_records):
-                    record = next(dump_fd)
-                    if filter_regex is None or filter_regex.search(record):
-                        process_record(record, endpoint)
-        except StopIteration:
-            pass
+    filter_regex = (
+        re.compile(args.filter_regex) if args.filter_regex else None)
 
+    try:
+        endpoint = "{0}/{1}".format(args.elastic_endpoint,
+                                    args.elastic_index)
+        if args.number_of_records == -1:
+            for record in dump_fd:
+                if filter_regex is None or filter_regex.search(record):
+                    process_record(record, endpoint)
+        else:
+            for i in range(0, args.number_of_records):
+                record = next(dump_fd)
+                if filter_regex is None or filter_regex.search(record):
+                    process_record(record, endpoint)
+    except StopIteration:
+        pass
+
+    p.kill()
