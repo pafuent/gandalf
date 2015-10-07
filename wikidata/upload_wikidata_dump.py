@@ -64,13 +64,13 @@ if __name__ == "__main__":
             for record in dump_fd:
                 if filter_regex is None or filter_regex.search(record):
                     process_record(record, es, args.elastic_index,
-                                   args.elastic_port)
+                                   args.elastic_type)
         else:
             for i in range(0, args.number_of_records):
                 record = next(dump_fd)
                 if filter_regex is None or filter_regex.search(record):
                     process_record(record, es, args.elastic_index,
-                                   args.elastic_port)
+                                   args.elastic_type)
     except StopIteration:
         pass
 
