@@ -24,6 +24,9 @@ iptables_rules() {
     # Use the REDSOCKS chain for all outgoing connection in the network 
     iptables -t nat -$1 OUTPUT -p tcp -o eth0 -j REDSOCKS
 
+    # Use the REDSOCKS chain for all outgoing connection in the vpn network
+    iptables -t nat -$1 OUTPUT -p tcp -o vpn0 -j REDSOCKS
+
     # Redirect docker0 port 80 connections to the http-relay redsocks port
     iptables -t nat -$1 PREROUTING -i docker0 -p tcp --dport 80 -j REDSOCKS
     # Redirect docker0 port 443 connections to the http-relay redsocks port
