@@ -74,7 +74,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 
 " Used by CtrlP
-set wildignore+=*.pyc
+set wildignore+=*.pyc,*.class
 
 "let g:pyflakes_use_quickfix = 0
 "highlight clear SpellBad
@@ -110,6 +110,10 @@ endif
 " CtrlP
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_custom_ignore = 'continuous_integration/reports'
+
+" Syntastic
+let g:syntastic_java_checkers=['javac']
+let g:syntastic_java_javac_config_file_enabled = 1
 
 " My mappings
 nmap <C-PageUp> :bp<CR>
