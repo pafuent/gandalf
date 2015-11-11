@@ -47,6 +47,8 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
+autocmd Filetype java setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+
 " Aid for 80 chars line length
 set colorcolumn=80
 
