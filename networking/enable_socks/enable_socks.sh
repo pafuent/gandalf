@@ -31,6 +31,8 @@ iptables_rules() {
     iptables -t nat -$1 PREROUTING -i docker0 -p tcp --dport 80 -j REDSOCKS
     # Redirect docker0 port 443 connections to the http-relay redsocks port
     iptables -t nat -$1 PREROUTING -i docker0 -p tcp --dport 443 -j REDSOCKS
+    # Redirect docker0 anything to the http-relay redsocks port
+    iptables -t nat -$1 PREROUTING -i docker0 -j REDSOCKS
 }
 
 stop() {
