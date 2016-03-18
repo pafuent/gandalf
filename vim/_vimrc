@@ -89,7 +89,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 
 " Used by CtrlP
-set wildignore+=*/build/*,*.pyc,*.class,*.jar
+set wildignore+=*/build/*,*.pyc,*.class,*.jar,*/CMakeFiles/*
 
 "let g:pyflakes_use_quickfix = 0
 "highlight clear SpellBad
