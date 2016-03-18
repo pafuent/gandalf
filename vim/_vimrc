@@ -100,6 +100,25 @@ set wildignore+=*/build/*,*.pyc,*.class,*.jar
 " Set the <leader>
 let mapleader=","
 
+" better backup, swap and undos storage
+set directory=$USERPROFILE/vimfiles/dirs/tmp " directory to place swap files in
+set backup " make backup files
+set backupdir=$USERPROFILE/vimfiles/dirs/backups " where to put backup files
+set undofile " persistent undos - undo after you re-open the file
+set undodir=$USERPROFILE/vimfiles/dirs/undos
+set viminfo+=n$USERPROFILE/vimfiles/dirs/viminfo
+
+" create needed directories if they don't exist
+if !isdirectory(&backupdir)
+    call mkdir(&backupdir, "p")
+endif
+if !isdirectory(&directory)
+    call mkdir(&directory, "p")
+endif
+if !isdirectory(&undodir)
+    call mkdir(&undodir, "p")
+endif
+
 " CtrlP
 let g:ctrlp_working_path_mode = '0'
 let g:ctrlp_custom_ignore = 'continuous_integration/reports'
@@ -121,8 +140,8 @@ map <C-c> :SyntasticCheck<CR>
 map <F3> :set hlsearch!<CR>
 
 source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
 
 set diffexpr=MyDiff()
 function MyDiff()
