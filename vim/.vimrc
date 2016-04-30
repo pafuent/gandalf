@@ -14,6 +14,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'ntpeters/vim-better-whitespace'
+"Bundle 'OmniSharp/omnisharp-vim'
 Bundle 'rosenfeld/conque-term'
 "Bundle 'majutsushi/tagbar'
 "Bundle 'jmcantrell/vim-virtualenv'
@@ -76,7 +78,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 
 " Used by CtrlP
-set wildignore+=*/build/*,*.pyc,*.class,*.jar
+set wildignore+=*/build/*,*.pyc,*.class,*.jar,*/CMakeFiles/*,*/ci/*,*/bin/*,*/obj/*,project.lock.json
 
 "let g:pyflakes_use_quickfix = 0
 "highlight clear SpellBad
@@ -128,3 +130,8 @@ map <C-b> :ConqueTerm bash<CR>
 "map <C-t> :TagbarToggle<CR>
 map <C-c> :SyntasticCheck<CR>
 map <F3> :set hlsearch!<CR>
+
+" Onmisharp
+"let g:OmniSharp_server_type = 'v1'
+"let g:OmniSharp_server_type = 'roslyn'
+"let g:OmniSharp_selector_ui = 'ctrlp'
