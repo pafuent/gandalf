@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export PIP_NO_INDEX=true
+export PIP_FIND_LINKS="file:///home/pafuent/Repos/pip_offline"
