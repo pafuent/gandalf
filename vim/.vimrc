@@ -49,6 +49,9 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
+" Golang specific
+autocmd FileType go setlocal noexpandtab tabstop=8 softtabstop=8 shiftwidth=8 ff=unix
+
 autocmd Filetype java setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 
 " Aid for 80 chars line length
